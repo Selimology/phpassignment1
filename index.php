@@ -21,79 +21,57 @@
 
 <body>
 
+  <h2>Epoka Registration Form</h2>
+  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
+    <label for="firstname">Name:</label><br>
+    <input type="text" id="firstname" name="firstname" value="<?php echo $firstname; ?>" /><br>
+
+    <label for="lastname">Last Name:</label><br>
+    <input id="lastname" type="text" name=" lastname" id="lastname" value="<?php echo $lastname; ?>" /><br>
+
+    <label for="birthdate">Birthday</label><br>
+    <input type="date" id="birthdate" name="birthdate" value="<?php echo $birthdate; ?>" /><br>
+
+    <label for="email">Email</label><br>
+    <input type="email" id="email" value="<?php echo $email; ?>" name="email"><br>
+
+    <label for="password">Password</label><br>
+    <input type="password" id="password" name="password" value="<?php echo $password; ?>"><br>
+
+    <label for="studyprograms">Study program</label><br>
+    <select name="studyprograms" id="programs">
+      <option selected value="CEN">CEN</option>
+      <option value="BINF">BINF</option>
+      <option value="SW">SW</option>
+    </select><br><br>
+
+    <input type="submit" name="submit" value="Submit">
+  </form>
 
   <?php
+
   $firstname = $lastname = $birthdate = $email = $password = $studyprograms = "";
-  $fnameErr = $lnameErr = "";
+  $fnameErr = $lnameErr = $birthdateErr = $emailErr = $passwordErr = $studyprogramsErr = '';
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // if (!isset($_POST["firstname"])) {
-    //   $fnameErr = "Please enter your first name";
-    // } else {
-    //   $firstname =  cleanupdata($_POST["firstname"]);
-    //   if (!preg_match("/^[a-zA-Z-' ]*$/", $firstname)) {
-    //     $fnameErr  = "Only letters";
-    //   }
-    // }
-    if (empty($_POST["name"])) {
+    if (empty($_POST["firstname"])) {
       $fnameErr = "Name is required";
     } else {
-      $firstname = cleanupdata($_POST["name"]);
-      if (!preg_match("/^[a-zA-Z-' ]*$/", $firstname)) {
-        $fnameErr = "Only letters and white space allowed";
-      }
-    }
-
-    if (!isset($_POST["lastname"])) {
-      $lnameErr = "Please enter your first name";
-    } else {
-      $lastname = cleanupdata($_POST["lastname"]);
-      if (!preg_match("/^[a-zA-Z-' ]*$/", $lastname)) {
-        $lnameErr = "Only letters";
+      $firstname = cleanupdata($_POST["firstname"]);
+      if (preg_match("/^([a-zA-Z' ]+)$/", $firstname)) {
+        $fnameErr = "Only letters are allowed!";
       }
     }
   }
 
   function cleanupdata($data)
   {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
+    $data = htmlspecialchars(stripslashes((trim($data))));
     return $data;
   }
+
   ?>
-
-  <h2>Epoka Registration Form</h2>
-  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-
-    <label>Name:</label>
-    <input type="text" name="firstname" value="<?php echo $firstname; ?>" />
-    <span class="error">* <?php echo $fnameErr; ?></span>
-    <br>
-
-    Last Name:<input type="text" name="lastname" id="ln" value="<?php echo $lastname; ?>" /><br>
-
-    Birth day<input type="date" id="bdate" name="birthdate" value="<?php echo $birthdate; ?>" /><br>
-
-    Email<input type="email" id="email" name="email"><br>
-
-    Password<input type="password" id="password" name="password"><br>
-
-    Study program<select name="studyprograms" id="programs">
-      <option selected value="CEN">CEN</option>
-      <option value="BINF">BINF</option>
-      <option value="SW">SW</option>
-    </select><br>
-
-    <button id="submit" name="submit" value="submit" type="submit">Register</button>
-  </form>
-
-  <?php
-
-  echo $firstname;
-  ?>
-
 </body>
 
 </html>
