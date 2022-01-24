@@ -1,0 +1,12 @@
+First name: 12312asd
+Last name: 
+Email: 1970@epoka.edu.al
+Birthdate: 
+Password: 
+StudyGroup:base
+First name: 12312asd
+Last name: 
+Email: 1970@epoka.edu.al
+Birthdate: 
+Password: 
+StudyGroup:base
